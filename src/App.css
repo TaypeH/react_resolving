@@ -1,0 +1,10 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.app {
+  display: flex;
+  width: 21rem;
+  justify-content: space-between;
+}
