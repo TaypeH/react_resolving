@@ -8,3 +8,9 @@
   width: 21rem;
   justify-content: space-between;
 }
+
+ul {
+  height: 100px;
+  width: 200px;
+  overflow: scroll
+}

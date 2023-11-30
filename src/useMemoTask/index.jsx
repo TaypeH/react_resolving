@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Count from './Count'
 import IsFive from './IsFive'
 
-function App() {
+function UseMemoTask() {
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
 
@@ -22,4 +22,4 @@ function App() {
   )
 }
 
-export default App
+export default UseMemoTask

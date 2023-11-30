@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 
 const render = {
@@ -20,5 +21,9 @@ Count.propTypes = {
     value: PropTypes.number.isRequired,
 }
 
-export default Count;
+const MemoizedCount = memo(Count, (prevProps, nextProps) => {
+    return prevProps.value === nextProps.value;
+});
+
+export default MemoizedCount;
 
