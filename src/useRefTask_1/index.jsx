@@ -6,9 +6,11 @@ const UseRefTask = () => {
     const [numbers, setNumbers] = useState(initialNumbers);
     const ulRef = useRef();
 
+    const numbersRef = useRef(numbers);
+
     const handleScroll = useCallback(() => {
         console.log("scrolling");
-        console.log("numbers", numbers);
+        console.log("numbers", numbersRef.current);
     }, [])
 
     const addScroll = () => {
@@ -20,8 +22,8 @@ const UseRefTask = () => {
     }
 
     const add = () => {
-        numbers.push(numbers[numbers.length - 1] + 1);
-        setNumbers(numbers);
+        // const newArray = numbers.concat(numbers[numbers.length - 1] + 1);
+        setNumbers(prev => [...prev, numbers[numbers.length - 1] + 1]);
     }
 
     return (
