@@ -14,7 +14,7 @@ const UseRefTask = () => {
         const timer = timerRef.current;
         timer.current = setInterval(() => addNumber, 1000);
     }
-
+    
     const stop = () => {
         const timer = timerRef.current;
         clearInterval(timer);

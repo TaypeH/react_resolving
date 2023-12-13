@@ -1,39 +1,54 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const UseRefTask = () => {
-    const [numbers, setNumbers] = useState([1, 2, 3, 4, 5]);
-    const ulRef = useRef();
+    let initialNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const [numbers, setNumbers] = useState(initialNumbers);
+
+    let ulElemTag = null
+
+    useEffect(() => {
+        ulElemTag = document.querySelector("ul");
+    }, [numbers])
+
+    // useEffect(() => {
+    //     const ulElem = ulElemTag.addEventListener("scroll", handleScroll);
+
+    //     return () => {
+    //         ulElem.removeEventListener("scroll", handleScroll);
+    //     }
+    // }, []);
 
     const handleScroll = () => {
         console.log("scrolling");
     }
 
-    useEffect(() => {
-        const ulElem = ulRef.current;
-
-        ulElem.addEventListener("scroll", handleScroll);
-        return () => {
-            ulElem.removeEventListener("scroll", handleScroll);
-        }
-    }, []);
+    const addScroll = () => {
+        ulElemTag.addEventListener("scroll", handleScroll);
+    }
 
     const removeScroll = () => {
-        const ulElem = ulRef.current;
+        ulElemTag.removeEventListener("scroll", handleScroll);
+    }
 
-        ulElem.removeEventListener("scroll", handleScroll);
+    const add = () => {
+        numbers.push( numbers[numbers.length - 1] + 1);
+        console.log(numbers)
     }
 
     return (
         <>
             <div className="app">
-                <h2>useRef</h2>
-                <ul ref={ulRef}>
+                <h2>{`${Math.random()}`.substring(2, 6)}</h2>
+                {/* <h2>numbers</h2> */}
+                <ul>
                     {numbers.map((number) => (
                         <li key={number}>{number}</li>
                     ))}
                 </ul>
             </div>
+            <button onClick={addScroll}>Subscribe</button>
             <button onClick={removeScroll}>Unsubscribe</button>
+            <button onClick={add}>+ 1</button>
         </>
     );
 }
