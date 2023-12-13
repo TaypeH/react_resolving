@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const UseRefUseCallbackTask = () => {
     const [numbers, setNumbers] = useState([1, 2, 3, 4, 5]);
@@ -11,13 +11,9 @@ const UseRefUseCallbackTask = () => {
         setNumbers(prev => [...prev, numbers[prev.length - 1] + 1]);
     };
 
-    // const handleScroll = () => {
-    //     console.log("scrolling");
-    // }
-
-    const handleScroll = useCallback(() => {
-        console.log("scrolling", numbersRef.current);
-    }, []);
+    const handleScroll = () => {
+        console.log("scrolling");
+    }
 
     const start = () => {
         const { current: timer } = ulRef;

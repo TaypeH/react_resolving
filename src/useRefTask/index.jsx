@@ -1,44 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const UseRefTask = () => {
     const [numbers, setNumbers] = useState([1, 2, 3, 4, 5]);
     const ulRef = useRef();
     const timerRef = useRef();
 
-    // const addNumber = () => {
-    //     const lastNumber = numbers[numbers.length - 1];
-    //     setNumbers([...numbers, lastNumber + 1]);
-    // };
-
     const addNumber = () => {
-        setNumbers(prev => [...prev, numbers[prev.length - 1] + 1]);
+        const lastNumber = numbers[numbers.length - 1];
+        setNumbers([...numbers, lastNumber + 1]);
     };
 
     const start = () => {
-        const { current: timer } = timerRef;
-        timer.current = setInterval(() => { addNumber, 1000 });
+        const timer = timerRef.current;
+        timer.current = setInterval(() => addNumber, 1000);
     }
-    
+
     const stop = () => {
-        const { current: timer } = timerRef;
+        const timer = timerRef.current;
         clearInterval(timer);
-    }
-
-    const handleScroll = () => {
-        console.log("scrolling");
-    }
-
-    useEffect(() => {
-        const { current: ulElem } = ulRef;
-        ulElem.addEventListener("scroll", handleScroll);
-        return () => {
-            ulElem.removeEventListener("scroll", handleScroll);
-        }
-    }, []);
-
-    const removeScroll = () => {
-        const { current: ulElem } = ulRef;
-        ulElem.removeEventListener("scroll", handleScroll);
     }
 
     return (
@@ -52,7 +31,6 @@ const UseRefTask = () => {
                 </ul>
             </div>
             <button onClick={addNumber}>Add Number</button>
-            <button onClick={removeScroll}>Unsubscribe</button>
             <button onClick={start}>Start</button>
             <button onClick={stop}>Stop</button>
         </>
