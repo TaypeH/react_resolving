@@ -1,38 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
+// import { handleScroll } from "./helper";
 
 const UseRefTask = () => {
     let initialNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     const [numbers, setNumbers] = useState(initialNumbers);
+    const ulRef = useRef();
 
-    let ulElemTag = null
-
-    useEffect(() => {
-        ulElemTag = document.querySelector("ul");
-    }, [numbers])
-
-    // useEffect(() => {
-    //     const ulElem = ulElemTag.addEventListener("scroll", handleScroll);
-
-    //     return () => {
-    //         ulElem.removeEventListener("scroll", handleScroll);
-    //     }
-    // }, []);
-
-    const handleScroll = () => {
+    const handleScroll = useCallback(() => {
         console.log("scrolling");
-    }
+        console.log("numbers", numbers);
+    }, [])
 
     const addScroll = () => {
-        ulElemTag.addEventListener("scroll", handleScroll);
+        ulRef.current.addEventListener("scroll", handleScroll);
     }
 
     const removeScroll = () => {
-        ulElemTag.removeEventListener("scroll", handleScroll);
+        ulRef.current.removeEventListener("scroll", handleScroll);
     }
 
     const add = () => {
-        numbers.push( numbers[numbers.length - 1] + 1);
-        console.log(numbers)
+        numbers.push(numbers[numbers.length - 1] + 1);
+        setNumbers(numbers);
     }
 
     return (
@@ -40,14 +29,14 @@ const UseRefTask = () => {
             <div className="app">
                 <h2>{`${Math.random()}`.substring(2, 6)}</h2>
                 {/* <h2>numbers</h2> */}
-                <ul>
+                <ul ref={ulRef}>
                     {numbers.map((number) => (
                         <li key={number}>{number}</li>
                     ))}
                 </ul>
             </div>
-            <button onClick={addScroll}>Subscribe</button>
-            <button onClick={removeScroll}>Unsubscribe</button>
+            <button onClick={addScroll}>add scroll</button>
+            <button onClick={removeScroll}>remove scroll</button>
             <button onClick={add}>+ 1</button>
         </>
     );
